@@ -1,18 +1,21 @@
 {
   "name": "mutable-emitter-value",
-  "version": "0.0.0",
-  "description": "Generic mutable emitter value",
-  "main": "index.js",
+  "version": "0.1.0",
+  "author": "Mariusz Nowak <medikoo+mutable@medikoo.com> (http://www.medikoo.com/)",
+  "description": "Mutable value interface",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node ./node_modules/tad/bin/tad lib"
   },
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/medikoo/mutable.git"
+  },
   "keywords": [
     "value",
+    "mutable",
+    "changeable",
     "emitter",
     "change",
-    "generic",
-    "database",
     "object"
   ],
   "scripts": {
@@ -24,6 +27,5 @@
   "devDependencies": {
     "tad": "~0.1.16"
   },
-  "author": "Mariusz Nowak",
   "license": "MIT"
 }
