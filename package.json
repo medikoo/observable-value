@@ -1,0 +1,29 @@
+{
+  "name": "mutable-emitter-value",
+  "version": "0.0.0",
+  "description": "Generic mutable emitter value",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "",
+  "keywords": [
+    "value",
+    "emitter",
+    "change",
+    "generic",
+    "database",
+    "object"
+  ],
+  "scripts": {
+    "test": "node ./node_modules/tad/bin/tad"
+  },
+  "dependencies": {
+    "event-emitter": "~0.2.2"
+  },
+  "devDependencies": {
+    "tad": "~0.1.16"
+  },
+  "author": "Mariusz Nowak",
+  "license": "MIT"
+}
