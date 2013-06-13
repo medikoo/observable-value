@@ -16,9 +16,7 @@ var obj = new Mutable();
 var emitted;
 
 obj.value = 'foo';
-obj.on('change', function (value) {
-  emitted = value;
-});
+obj.on('change', function (value) { emitted = value; });
 obj.value = 'bar';
 console.log(emitted); // 'bar';
 ```
@@ -53,9 +51,7 @@ var m1 = new Mutable();
 var em = eq(m1, 'foo');
 console.log(isMutable(em)); // true
 console.log(em.value); // false
-em.on('change', function (value) {
-  emitted = value;
-});
+em.on('change', function (value) { emitted = value; });
 m1.value = 'foo';
 console.log(emitted); // true
 console.log(em.value); // true
