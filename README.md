@@ -83,8 +83,8 @@ In your project path:
 
 ### Browser
 
-You can easily bundle Mutable for browser with [modules-webmake](https://github.com/medikoo/modules-webmake)
+You can easily bundle _Mutable_ for browser with [modules-webmake](https://github.com/medikoo/modules-webmake)
 
-## Tests [![Build Status](https://travis-ci.org/medikoo/mutable.png)](https://travis-ci.org/medikoo/microtime-x)
+## Tests [![Build Status](https://travis-ci.org/medikoo/mutable.png)](https://travis-ci.org/medikoo/mutable)
 
 	$ npm test
