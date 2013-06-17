@@ -1,8 +1,8 @@
 'use strict';
 
-var isEqual    = require('es5-ext/lib/Object/is')
-  , mutable    = require('./')
-  , isMutable  = require('./is');
+var isEqual   = require('es5-ext/lib/Object/is')
+  , mutable   = require('./')
+  , isMutable = require('./is');
 
 module.exports = function (left, right) {
 	var isLMutable, isRMutable, value;
