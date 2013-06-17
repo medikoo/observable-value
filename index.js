@@ -33,3 +33,4 @@ module.exports = function (value) {
 	if (!('value' in value)) defineProperty(value, 'value', valueDscr);
 	return defineProperty(value, '_isMutableEmitterValue_', idDscr);
 };
+module.exports.Mutable = Mutable;

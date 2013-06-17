@@ -23,7 +23,8 @@
   },
   "dependencies": {
     "es5-ext": "~0.9.2",
-    "event-emitter": "~0.2.2"
+    "event-emitter": "~0.2.2",
+    "memoizee": "~0.2.4"
   },
   "devDependencies": {
     "tad": "~0.1.16"
