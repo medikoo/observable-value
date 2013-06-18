@@ -1,7 +1,7 @@
 'use strict';
 
 var isMutable = require('../is')
-  , Mutable   = require('../').Mutable;
+  , Mutable   = require('../');
 
 module.exports = function (t, a) {
 	var x = new Mutable('foo'), r;

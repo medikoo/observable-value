@@ -3,11 +3,11 @@
 var d          = require('es5-ext/lib/Object/descriptor')
   , validValue = require('es5-ext/lib/Object/valid-value')
   , memoize    = require('memoizee/lib/regular')
-  , mutable    = require('./')
+  , Mutable    = require('./')
   , isMutable  = require('./is')
   , eq         = require('./eq')
 
-  , some = Array.prototype.some, Mutable = mutable.Mutable
+  , some = Array.prototype.some
   , EqSome;
 
 EqSome = function (list, value) {

@@ -1,40 +1,31 @@
 'use strict';
 
-var d = require('es5-ext/lib/Object/descriptor')
-  , ee = require('event-emitter/lib/core')
+var d    = require('es5-ext/lib/Object/descriptor')
+  , ee   = require('event-emitter/lib/core')
+  , mark = require('./_mark-as-mutable')
 
   , defineProperty = Object.defineProperty
-  , idDscr = d(true)
-  , _valueDscr = d()
+  , valueDscr = d()
+  , Mutable;
 
-  , valueDscr, Mutable;
-
-valueDscr = d.gs('ec', function () { return this._value; }, function (nu) {
-	var old = this._value;
-	if (!this.hasOwnProperty('_value')) {
-		_valueDscr.value = nu;
-		defineProperty(this, '_value', _valueDscr);
-	} else {
-		this._value = nu;
-	}
-	if (nu !== old) this.emit('change', nu);
-});
-
-Mutable = function (value) {
+module.exports = Mutable = function (value) {
 	if (value === undefined) return;
-	_valueDscr.value = value;
-	defineProperty(this, '_value', _valueDscr);
+	valueDscr.value = value;
+	defineProperty(this, '_value', valueDscr);
+	delete valueDscr.value;
 };
-Object.defineProperties(ee(Mutable.prototype), {
-	_isMutableEmitterValue_: idDscr,
-	value: valueDscr,
+mark(Object.defineProperties(ee(Mutable.prototype), {
+	_value: valueDscr,
+	value: d.gs('ec', function () { return this._value; }, function (nu) {
+		var old = this._value;
+		if (!this.hasOwnProperty('_value')) {
+			valueDscr.value = nu;
+			defineProperty(this, '_value', valueDscr);
+			delete valueDscr.value;
+		} else {
+			this._value = nu;
+		}
+		if (nu !== old) this.emit('change', nu);
+	}),
 	toString: d(function () { return String(this._value); })
-});
-
-module.exports = function (value) {
-	if (value == null) return new Mutable();
-	if (!value.on || !value.off) ee(value);
-	if (!('value' in value)) defineProperty(value, 'value', valueDscr);
-	return defineProperty(value, '_isMutableEmitterValue_', idDscr);
-};
-module.exports.Mutable = Mutable;
+}));

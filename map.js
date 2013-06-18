@@ -2,7 +2,7 @@
 
 var callable  = require('es5-ext/lib/Object/valid-callable')
   , memoize   = require('memoizee/lib/regular')
-  , Mutable   = require('./').Mutable
+  , Mutable   = require('./')
   , isMutable = require('./is');
 
 module.exports = function (value, cb) {

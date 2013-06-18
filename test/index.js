@@ -2,8 +2,8 @@
 
 var is = require('../is');
 
-module.exports = function (t, a) {
-	var value = t(), invoked = false, x = {};
+module.exports = function (T, a) {
+	var value = new T(), invoked = false, x = {};
 	a(is(value), true, "Create");
 	value.on('change', function (val) { invoked = val; });
 	a(invoked, false, "Pre emit");
@@ -11,11 +11,6 @@ module.exports = function (t, a) {
 	a(invoked, 'raz', "After emit");
 
 	invoked = false;
-	value = t(x);
-	a(x, value, "Extend");
-	a(is(value), true, "No args");
-	value.on('change', function (val) { invoked = val; });
-	a(invoked, false, "Pre emit");
-	value.value = 'dwa';
-	a(invoked, 'dwa', "After emit");
+	value = new T(x);
+	a(value.value, x, "Value");
 };

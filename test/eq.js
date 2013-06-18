@@ -1,10 +1,10 @@
 'use strict';
 
 var isMutable = require('../is')
-  , mutable   = require('../');
+  , Mutable   = require('../');
 
 module.exports = function (t, a) {
-	var x = mutable(), y = mutable(), r, ev;
+	var x = new Mutable(), y = new Mutable(), r, ev;
 	a(t('raz', 'raz'), true, "Immutable");
 	a(t(), true, "Undefined");
 	a(t('raz'), false, "Immutable: not equal");
