@@ -2,7 +2,7 @@
 
 var d    = require('es5-ext/lib/Object/descriptor')
   , ee   = require('event-emitter/lib/core')
-  , mark = require('./_mark-as-mutable')
+  , mark = require('./_mark')
 
   , defineProperty = Object.defineProperty
   , valueDscr = d()
