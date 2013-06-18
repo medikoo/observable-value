@@ -5,12 +5,12 @@ var callable  = require('es5-ext/lib/Object/valid-callable')
   , Mutable   = require('./')
   , isMutable = require('./is');
 
-module.exports = function (value, cb) {
-	var map;
+module.exports = function (value, cb/*, thisArg */) {
+	var map, thisArg = arguments[2];
 	callable(cb);
-	if (!isMutable(value)) return cb(value);
-	cb = memoize(cb, { length: 1 });
+	if (!isMutable(value)) return cb.call(thisArg, value);
+	cb = memoize(cb.bind(thisArg), { length: 1 });
 	map = new Mutable(cb(value.value));
-	value.on('change', function (value) { map.value = cb(value); });
+	value.on('change', function (nu) { map.value = cb(nu, value); });
 	return map;
 };
