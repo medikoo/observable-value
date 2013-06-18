@@ -7,7 +7,7 @@ var d          = require('es5-ext/lib/Object/descriptor')
   , isMutable  = require('./is')
   , eq         = require('./eq')
 
-  , some = Array.prototype.some
+  , some = Array.prototype.some, defineProperty = Object.defineProperty
   , EqSome;
 
 EqSome = function (list, value) {
@@ -21,6 +21,7 @@ EqSome = function (list, value) {
 		list.on('change', this.updateList);
 		this._listeners.push(list.off.bind(list, 'change', this.updateList));
 	}
+	defineProperty(this, '__value', d('w', false));
 	this.updateList();
 };
 
@@ -28,7 +29,6 @@ EqSome.prototype = Object.create(Mutable.prototype, {
 	constructor: d(EqSome),
 	_isMutable: d(null),
 	_count: d(0),
-	_value: d(false),
 	addItem: d(function (item) {
 		var current, listener;
 		item = eq(item, this.testee);

@@ -13,4 +13,7 @@ module.exports = function (T, a) {
 	invoked = false;
 	value = new T(x);
 	a(value.value, x, "Value");
+
+	value.value = new T('raz');
+	a(value.value, 'raz', "Inner mutable");
 };
