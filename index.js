@@ -20,7 +20,11 @@ valueDscr = d.gs('ec', function () { return this._value; }, function (nu) {
 	if (nu !== old) this.emit('change', nu);
 });
 
-Mutable = function () {};
+Mutable = function (value) {
+	if (value === undefined) return;
+	_valueDscr.value = value;
+	defineProperty(this, '_value', _valueDscr);
+};
 Object.defineProperties(ee(Mutable.prototype), {
 	_isMutableEmitterValue_: idDscr,
 	value: valueDscr,
