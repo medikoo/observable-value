@@ -37,7 +37,7 @@ mark(Object.defineProperties(ee(Mutable.prototype), extend({
 		}
 		if (nu !== old) this.emit('change', nu);
 	}),
-	toString: d(function () { return String(this._value); })
+	toString: d(function () { return String(this.__value); })
 }, d.binder({
 	_mutableListener: d('', function (nu) {
 		if (this.__value === nu) return;
