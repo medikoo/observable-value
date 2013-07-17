@@ -6,4 +6,4 @@ node_js:
 
 notifications:
   email:
-    - medikoo+mutable-emitter-value@medikoo.com
+    - medikoo+mutable@medikoo.com
