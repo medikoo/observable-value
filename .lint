@@ -29,4 +29,3 @@ jshint.global module, require, exports
 jshint.smarttabs
 jshint.eqnull
 jshint.expr
-
