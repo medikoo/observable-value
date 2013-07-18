@@ -35,7 +35,7 @@ mark(Object.defineProperties(ee(Mutable.prototype), extend({
 			if (isOldMutable) delete this._value;
 			this.__value = nu;
 		}
-		if (nu !== old) this.emit('change', nu);
+		if (nu !== old) this.emit('change', nu, old);
 	}),
 	toString: d(function () { return String(this.__value); })
 }, d.binder({
