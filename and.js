@@ -1,24 +1,35 @@
 'use strict';
 
 var Mutable   = require('./')
-  , isMutable = require('./is');
+  , isMutable = require('./is')
 
-module.exports = function (a, b) {
-	var isAMutable, isBMutable, value;
-	isAMutable = isMutable(a);
-	isBMutable = isMutable(b);
-	if (!isAMutable && !isBMutable) return Boolean(a && b);
-	if (isAMutable) {
-		a.on('change', function (a) {
-			value.value = Boolean(a && (isBMutable ? b.value : b));
-		});
-	}
-	if (isBMutable) {
-		b.on('change', function (b) {
-			value.value = Boolean((isAMutable ? a.value : a) && b);
-		});
-	}
-	value = new Mutable(Boolean((isAMutable ? a.value : a) &&
-		(isBMutable ? b.value : b)));
+  , forEach = Array.prototype.forEach;
+
+module.exports = function (a, b/* …other*/) {
+	var value, makeMutable, onChange, state = 0, l = arguments.length;
+
+	if (!l) return false;
+
+	onChange = function (nu, old) {
+		if (Boolean(nu) === Boolean(old)) return;
+		if (nu) {
+			if (++state === l) value.value = true;
+		} else if (state-- === l) {
+			value.value = false;
+		}
+	};
+
+	forEach.call(arguments, function (arg) {
+		if (isMutable(arg)) {
+			makeMutable = true;
+			arg.on('change', onChange);
+			if (arg.value) ++state;
+			return;
+		}
+		if (arg) ++state;
+	});
+
+	if (!makeMutable) return (state === l);
+	value = new Mutable(state === l);
 	return value;
 };

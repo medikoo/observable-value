@@ -11,7 +11,8 @@ module.exports = function (t, a) {
 	a(t(NaN, false), false, "Immutable: None");
 
 	a(t(), false, "Undefined");
-	a(t('raz'), false, "Immutable: One");
+	a(t('raz'), true, "Immutable: One: True");
+	a(t(0), false, "Immutable: One: False");
 
 	a(isMutable(r = t(x, 'raz')), true, "Mutable: A");
 	a(r.value, false, "A: value");
