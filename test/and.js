@@ -5,44 +5,45 @@ var isMutable = require('../is')
 
 module.exports = function (t, a) {
 	var x = new Mutable(), y = new Mutable(), r, ev;
-	a(t(true, 'raz'), true, "Immutable: A & B");
-	a(t(true, 0), false, "Immutable: A");
-	a(t(NaN, 33), false, "Immutable: B");
-	a(t(NaN, false), false, "Immutable: None");
+	a(t(true, 'raz'), 'raz', "Immutable: A & B");
+	a(t(true, 0), 0, "Immutable: A");
+	a(t('', 33), '', "Immutable: B");
+	a(t(0, false), 0, "Immutable: None");
 
-	a(t(), false, "Undefined");
-	a(t('raz'), true, "Immutable: One: True");
-	a(t(0), false, "Immutable: One: False");
+	a(t(), undefined, "Undefined");
+	a(t('raz'), 'raz', "Immutable: One: True");
+	a(t(0), 0, "Immutable: One: False");
 
 	a(isMutable(r = t(x, 'raz')), true, "Mutable: A");
-	a(r.value, false, "A: value");
+	a(r.value, undefined, "A: value");
 	r.on('change', function (val) { ev = val; });
-	x.value = 'raz';
-	a(ev, true, "A: True");
-	a(r.value, true, "A: True: value");
+	x.value = 15;
+	a(ev, 'raz', "A: True");
+	a(r.value, 'raz', "A: True: value");
 	x.value = false;
 	a(ev, false, "A: False");
 	a(r.value, false, "A: False: value");
 
-	ev = null;
 	x.value = '343';
 	a(isMutable(r = t('dwa', x)), true, "B");
-	a(r.value, true, "B: value");
+	a(r.value, '343', "B: value");
+	ev = null;
 	r.on('change', function (val) { ev = val; });
 	x.value = 0;
-	a(ev, false, "B: False");
-	a(r.value, false, "B: False: value");
+	a(ev, 0, "B: False");
+	a(r.value, 0, "B: False: value");
 	x.value = 'elo';
-	a(ev, true, "B: True");
-	a(r.value, true, "B: True: value");
+	a(ev, 'elo', "B: True");
+	a(r.value, 'elo', "B: True: value");
 
 	a(isMutable(r = t(x, y)), true, "Both");
-	a(r.value, false, "Both: value");
+	a(r.value, undefined, "Both: value");
+	ev = null;
 	r.on('change', function (val) { ev = val; });
 	y.value = 'dwa';
-	a(ev, true, "Both: True");
-	a(r.value, true, "Both: True: value");
+	a(ev, 'dwa', "Both: True");
+	a(r.value, 'dwa', "Both: True: value");
 	x.value = null;
-	a(ev, false, "Both: False");
-	a(r.value, false, "Both: False: value");
+	a(ev, null, "Both: False");
+	a(r.value, null, "Both: False: value");
 };
