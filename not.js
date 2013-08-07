@@ -5,11 +5,11 @@ var Mutable   = require('./')
 
 module.exports = function (value) {
 	var not, current;
-	if (!isMutable(value)) return !Boolean(value);
-	current = !Boolean(value.value);
+	if (!isMutable(value)) return !value;
+	current = !value.value;
 	not = new Mutable(current);
 	value.on('change', function (nu) {
-		nu = !Boolean(nu);
+		nu = !nu;
 		if (nu === current) return;
 		not.value = current = nu;
 	});
