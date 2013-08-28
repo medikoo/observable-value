@@ -1,6 +1,6 @@
 'use strict';
 
-var callable  = require('es5-ext/lib/Object/valid-callable')
+var callable  = require('es5-ext/object/valid-callable')
   , memoize   = require('memoizee/lib/regular')
   , Mutable   = require('./')
   , isMutable = require('./is');

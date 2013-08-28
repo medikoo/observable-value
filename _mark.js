@@ -1,7 +1,7 @@
 'use strict';
 
-var value    = require('es5-ext/lib/Object/valid-value')
-  , callable = require('es5-ext/lib/Object/valid-callable')
+var value    = require('es5-ext/object/valid-value')
+  , callable = require('es5-ext/object/valid-callable')
 
   , defineProperty = Object.defineProperty
   , idDscr = { value: true, enumerable: false, configurable: false,

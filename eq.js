@@ -1,6 +1,6 @@
 'use strict';
 
-var is        = require('es5-ext/lib/Object/is')
+var is        = require('es5-ext/object/is')
   , Mutable   = require('./')
   , isMutable = require('./is');
 
