@@ -10,6 +10,10 @@ var d      = require('es5-ext/object/descriptor')
   , Mutable;
 
 module.exports = Mutable = function (value) {
+	if (this == null) return new Mutable(value);
+	if (!(this instanceof Mutable)) {
+		throw new TypeError(value + " is not mutable instance");
+	}
 	if (is(value)) {
 		defineProperty(this, '_value', d(value));
 		value.on('change', this._mutableListener);
