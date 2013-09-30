@@ -1,6 +1,6 @@
 'use strict';
 
-var d         = require('es5-ext/object/descriptor')
+var d         = require('d/d')
   , Mutable   = require('./')
   , isMutable = require('./is')
 

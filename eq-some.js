@@ -1,7 +1,7 @@
 'use strict';
 
-var d          = require('es5-ext/object/descriptor')
-  , validValue = require('es5-ext/object/valid-value')
+var validValue = require('es5-ext/object/valid-value')
+  , d          = require('d/d')
   , memoize    = require('memoizee/lib/regular')
   , Mutable    = require('./')
   , isMutable  = require('./is')

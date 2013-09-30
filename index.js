@@ -1,10 +1,11 @@
 'use strict';
 
-var d      = require('es5-ext/object/descriptor')
-  , extend = require('es5-ext/object/extend')
-  , ee     = require('event-emitter/lib/core')
-  , mark   = require('./_mark')
-  , is     = require('./is')
+var extend   = require('es5-ext/object/extend')
+  , d        = require('d/d')
+  , autoBind = require('d/auto-bind')
+  , ee       = require('event-emitter/lib/core')
+  , mark     = require('./_mark')
+  , is       = require('./is')
 
   , defineProperty = Object.defineProperty
   , Mutable;
@@ -42,7 +43,7 @@ mark(Object.defineProperties(ee(Mutable.prototype), extend({
 		if (nu !== old) this.emit('change', nu, old);
 	}),
 	toString: d(function () { return String(this.__value); })
-}, d.binder({
+}, autoBind({
 	_mutableListener: d('', function (nu) {
 		if (this.__value === nu) return;
 		this.__value = nu;
