@@ -1,6 +1,6 @@
 'use strict';
 
-var extend   = require('es5-ext/object/extend')
+var assign   = require('es5-ext/object/assign')
   , d        = require('d/d')
   , autoBind = require('d/auto-bind')
   , ee       = require('event-emitter/lib/core')
@@ -22,7 +22,7 @@ module.exports = Mutable = function (value) {
 	}
 	defineProperty(this, '__value', d('w', value));
 };
-mark(Object.defineProperties(ee(Mutable.prototype), extend({
+mark(Object.defineProperties(ee(Mutable.prototype), assign({
 	__value: d('', undefined),
 	_value: d('', undefined),
 	value: d.gs('ec', function () { return this.__value; }, function (nu) {
