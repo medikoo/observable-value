@@ -17,20 +17,20 @@ module.exports = Observable = function (value) {
 };
 mark(Object.defineProperties(ee(Observable.prototype), assign({
 	__value__: d('', undefined),
-	_value: d('', undefined),
+	__link__: d('', undefined),
 	value: d.gs('ec', function () { return this.__value__; }, function (nu) {
-		var old = this.__value__, isOldObservable = this.hasOwnProperty('_value');
+		var old = this.__value__, isOldObservable = this.hasOwnProperty('__link__');
 		if (isOldObservable) {
-			if (nu === this._value) return;
-			this._value.off('change', this._mutableListener);
+			if (nu === this.__link__) return;
+			this.__link__.off('change', this._mutableListener);
 		}
 		if (is(nu)) {
-			if (isOldObservable) this._value = nu;
-			else defineProperty(this, '_value', d(nu));
+			if (isOldObservable) this.__link__ = nu;
+			else defineProperty(this, '__link__', d(nu));
 			nu.on('change', this._mutableListener);
 			this.__value__ = nu = nu.value;
 		} else {
-			if (isOldObservable) delete this._value;
+			if (isOldObservable) delete this.__link__;
 			this.__value__ = nu;
 		}
 		if (nu !== old) this.emit('change', nu, old);
