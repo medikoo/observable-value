@@ -8,10 +8,10 @@ var assign   = require('es5-ext/object/assign')
   , is       = require('./is')
 
   , defineProperty = Object.defineProperty
-  , Mutable;
+  , Observable;
 
-module.exports = Mutable = function (value) {
-	if (!(this instanceof Mutable)) return new Mutable(value);
+module.exports = Observable = function (value) {
+	if (!(this instanceof Observable)) return new Observable(value);
 	if (is(value)) {
 		defineProperty(this, '_value', d(value));
 		value.on('change', this._mutableListener);
@@ -19,22 +19,22 @@ module.exports = Mutable = function (value) {
 	}
 	defineProperty(this, '__value', d('w', value));
 };
-mark(Object.defineProperties(ee(Mutable.prototype), assign({
+mark(Object.defineProperties(ee(Observable.prototype), assign({
 	__value: d('', undefined),
 	_value: d('', undefined),
 	value: d.gs('ec', function () { return this.__value; }, function (nu) {
-		var old = this.__value, isOldMutable = this.hasOwnProperty('_value');
-		if (isOldMutable) {
+		var old = this.__value, isOldObservable = this.hasOwnProperty('_value');
+		if (isOldObservable) {
 			if (nu === this._value) return;
 			this._value.off('change', this._mutableListener);
 		}
 		if (is(nu)) {
-			if (isOldMutable) this._value = nu;
+			if (isOldObservable) this._value = nu;
 			else defineProperty(this, '_value', d(nu));
 			nu.on('change', this._mutableListener);
 			this.__value = nu = nu.value;
 		} else {
-			if (isOldMutable) delete this._value;
+			if (isOldObservable) delete this._value;
 			this.__value = nu;
 		}
 		if (nu !== old) this.emit('change', nu, old);
