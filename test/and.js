@@ -1,10 +1,10 @@
 'use strict';
 
-var isMutable = require('../is')
-  , Mutable   = require('../');
+var isObservable = require('../is')
+  , Observable   = require('../value');
 
 module.exports = function (t, a) {
-	var x = new Mutable(), y = new Mutable(), r, ev;
+	var x = new Observable(), y = new Observable(), r, ev;
 	a(t(true, 'raz'), 'raz', "Immutable: A & B");
 	a(t(true, 0), 0, "Immutable: A");
 	a(t('', 33), '', "Immutable: B");
@@ -14,7 +14,7 @@ module.exports = function (t, a) {
 	a(t('raz'), 'raz', "Immutable: One: True");
 	a(t(0), 0, "Immutable: One: False");
 
-	a(isMutable(r = t(x, 'raz')), true, "Mutable: A");
+	a(isObservable(r = t(x, 'raz')), true, "Observable: A");
 	a(r.value, undefined, "A: value");
 	r.on('change', function (val) { ev = val; });
 	x.value = 15;
@@ -25,7 +25,7 @@ module.exports = function (t, a) {
 	a(r.value, false, "A: False: value");
 
 	x.value = '343';
-	a(isMutable(r = t('dwa', x)), true, "B");
+	a(isObservable(r = t('dwa', x)), true, "B");
 	a(r.value, '343', "B: value");
 	ev = null;
 	r.on('change', function (val) { ev = val; });
@@ -36,7 +36,7 @@ module.exports = function (t, a) {
 	a(ev, 'elo', "B: True");
 	a(r.value, 'elo', "B: True: value");
 
-	a(isMutable(r = t(x, y)), true, "Both");
+	a(isObservable(r = t(x, y)), true, "Both");
 	a(r.value, undefined, "Both: value");
 	ev = null;
 	r.on('change', function (val) { ev = val; });

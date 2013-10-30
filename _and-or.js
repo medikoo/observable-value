@@ -1,13 +1,13 @@
 'use strict';
 
-var Mutable   = require('./')
-  , isMutable = require('./is')
+var Observable   = require('./value')
+  , isObservable = require('./is')
 
   , some = Array.prototype.some;
 
 module.exports = function (map) {
 	return function (a, b/* …other*/) {
-		var value = map(), makeMutable, onChange, current = Infinity
+		var value = map(), makeObservable, onChange, current = Infinity
 		  , values = arguments, l = values.length;
 
 		onChange = function (nu, old) {
@@ -20,7 +20,7 @@ module.exports = function (map) {
 				return;
 			}
 			for (i = current + 1; i < l; ++i) {
-				val = isMutable(values[i]) ? values[i].value : values[i];
+				val = isObservable(values[i]) ? values[i].value : values[i];
 				if (map(val)) {
 					current = i;
 					value.value = val;
@@ -28,13 +28,13 @@ module.exports = function (map) {
 				}
 			}
 			current = Infinity;
-			value.value = isMutable(values[l - 1]) ? values[l - 1].value :
+			value.value = isObservable(values[l - 1]) ? values[l - 1].value :
 					values[l - 1];
 		};
 
 		if (some.call(values, function (arg, index) {
-				if (isMutable(arg)) {
-					makeMutable = true;
+				if (isObservable(arg)) {
+					makeObservable = true;
 					arg.on('change', onChange.bind(index));
 					if (map(arg.value) && !map(value)) {
 						value = arg.value;
@@ -44,18 +44,18 @@ module.exports = function (map) {
 				}
 				if (map(arg) && !map(value)) {
 					value = arg;
-					if (!makeMutable) return true;
+					if (!makeObservable) return true;
 					current = index;
 				}
 			})) {
 			return value;
 		}
 
-		if (!makeMutable) return l ? values[l - 1] : undefined;
+		if (!makeObservable) return l ? values[l - 1] : undefined;
 		if (!map(value)) {
-			value = isMutable(values[l - 1]) ? values[l - 1].value : values[l - 1];
+			value = isObservable(values[l - 1]) ? values[l - 1].value : values[l - 1];
 		}
-		value = new Mutable(value);
+		value = new Observable(value);
 		return value;
 	};
 };

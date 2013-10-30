@@ -1,10 +1,10 @@
 'use strict';
 
-var isMutable = require('../is')
-  , Mutable   = require('../');
+var isObservable = require('../is')
+  , Observable   = require('../value');
 
 module.exports = function (t, a) {
-	var c = new Mutable(), x = new Mutable(), y = new Mutable(), r, ev;
+	var c = new Observable(), x = new Observable(), y = new Observable(), r, ev;
 	a(t('raz', 'foo', 'bar'), 'foo', "Immutable: True");
 	a(t(0, 'foo', 'bar'), 'bar', "Immutable: False");
 	a(t('raz', x, y), x, "Immutable cond: True");
@@ -12,7 +12,7 @@ module.exports = function (t, a) {
 
 	a(t(), undefined, "Undefined");
 
-	a(isMutable(r = t(c, 'foo', 'bar')), true, "Cond mutable");
+	a(isObservable(r = t(c, 'foo', 'bar')), true, "Cond mutable");
 	a(r.value, 'bar', "False: value");
 	r.on('change', function (val) { ev = val; });
 	c.value = 'raz';
@@ -22,7 +22,7 @@ module.exports = function (t, a) {
 	a(ev, 'bar', "Switch to false: event");
 	a(r.value, 'bar', "Switch to false: value");
 
-	a(isMutable(r = t(c, x, y)), true, "Cond mutable");
+	a(isObservable(r = t(c, x, y)), true, "Cond mutable");
 	a(r.value, undefined, "False: value");
 	r.on('change', function (val) { ev = val; });
 	y.value = 'im-y';

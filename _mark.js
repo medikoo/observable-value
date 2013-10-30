@@ -10,5 +10,5 @@ var value    = require('es5-ext/object/valid-value')
 module.exports = function (obj) {
 	(value(obj) && callable(obj.on) && callable(obj.off));
 	if (!('value' in obj)) throw new TypeError("'value' property not defined");
-	return defineProperty(obj, '_isMutableEmitterValue_', idDscr);
+	return defineProperty(obj, '_isObservableValue_', idDscr);
 };

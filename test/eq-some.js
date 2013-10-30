@@ -1,53 +1,53 @@
 'use strict';
 
-var isMutable = require('../is')
-  , Mutable   = require('../');
+var isObservable = require('../is')
+  , Observable   = require('../value');
 
 module.exports = function (t, a) {
-	var x = new Mutable(), y = new Mutable(), z = new Mutable(), r;
+	var x = new Observable(), y = new Observable(), z = new Observable(), r;
 
 	a(t(['raz', 'dwa'], 'raz'), true, "Immutable");
 	a(t(['foo', 'bar'], 'raz'), false, "Immutable");
 
-	a(isMutable(r = t(['foo', 'bar'], x)), true, "Mutable value");
-	a(r.value, false, "Mutable value: value");
+	a(isObservable(r = t(['foo', 'bar'], x)), true, "Observable value");
+	a(r.value, false, "Observable value: value");
 	x.value = 'foo';
-	a(r.value, true, "Mutable value: Update 1");
+	a(r.value, true, "Observable value: Update 1");
 	x.value = 'bar';
-	a(r.value, true, "Mutable value: Update 2");
+	a(r.value, true, "Observable value: Update 2");
 	x.value = 'elo';
-	a(r.value, false, "Mutable value: Update 3");
+	a(r.value, false, "Observable value: Update 3");
 
-	a(isMutable(r = t([x, y], 'foo')), true, "Mutable list");
-	a(r.value, false, "Mutable list: value");
+	a(isObservable(r = t([x, y], 'foo')), true, "Observable list");
+	a(r.value, false, "Observable list: value");
 	x.value = 'foo';
-	a(r.value, true, "Mutable list: Update 1");
+	a(r.value, true, "Observable list: Update 1");
 	x.value = 'bar';
-	a(r.value, false, "Mutable list: Update 2");
+	a(r.value, false, "Observable list: Update 2");
 	x.value = 'foo';
-	a(r.value, true, "Mutable list: Update 3");
+	a(r.value, true, "Observable list: Update 3");
 	y.value = 'foo';
-	a(r.value, true, "Mutable list: Update 4");
+	a(r.value, true, "Observable list: Update 4");
 	x.value = 'elo';
-	a(r.value, true, "Mutable list: Update 5");
+	a(r.value, true, "Observable list: Update 5");
 	y.value = 'melo';
-	a(r.value, false, "Mutable list: Update 6");
+	a(r.value, false, "Observable list: Update 6");
 
 	z.value = 'foo';
-	a(isMutable(r = t([x, y], z)), true, "Mutable list & value");
-	a(r.value, false, "Mutable list & value: value");
+	a(isObservable(r = t([x, y], z)), true, "Observable list & value");
+	a(r.value, false, "Observable list & value: value");
 	x.value = 'foo';
-	a(r.value, true, "Mutable list & value: Update 1");
+	a(r.value, true, "Observable list & value: Update 1");
 	x.value = 'bar';
-	a(r.value, false, "Mutable list & value: Update 2");
+	a(r.value, false, "Observable list & value: Update 2");
 	x.value = 'foo';
-	a(r.value, true, "Mutable list & value: Update 3");
+	a(r.value, true, "Observable list & value: Update 3");
 	y.value = 'foo';
-	a(r.value, true, "Mutable list & value: Update 4");
+	a(r.value, true, "Observable list & value: Update 4");
 	x.value = 'elo';
-	a(r.value, true, "Mutable list & value: Update 5");
+	a(r.value, true, "Observable list & value: Update 5");
 	y.value = 'melo';
-	a(r.value, false, "Mutable list & value: Update 6");
+	a(r.value, false, "Observable list & value: Update 6");
 	z.value = 'melo';
-	a(r.value, true, "Mutable list & value: Update 7");
+	a(r.value, true, "Observable list & value: Update 7");
 };

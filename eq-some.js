@@ -1,11 +1,11 @@
 'use strict';
 
-var validValue = require('es5-ext/object/valid-value')
-  , d          = require('d/d')
-  , memoize    = require('memoizee/lib/regular')
-  , Mutable    = require('./')
-  , isMutable  = require('./is')
-  , eq         = require('./eq')
+var validValue   = require('es5-ext/object/valid-value')
+  , d            = require('d/d')
+  , memoize      = require('memoizee/lib/regular')
+  , Observable   = require('./value')
+  , isObservable = require('./is')
+  , eq           = require('./eq')
 
   , some = Array.prototype.some, defineProperty = Object.defineProperty
   , EqSome;
@@ -14,7 +14,7 @@ EqSome = function (list, value) {
 	this.testee = value;
 	this.list = validValue(list);
 	this._listeners = [];
-	if (isMutable(list)) {
+	if (isObservable(list)) {
 		this.addItem = memoize(this.addItem.bind(this));
 		this._listeners.push(this.addItem.clearAll);
 		this.updateList = this.updateList.bind(this);
@@ -25,23 +25,23 @@ EqSome = function (list, value) {
 	this.updateList();
 };
 
-EqSome.prototype = Object.create(Mutable.prototype, {
+EqSome.prototype = Object.create(Observable.prototype, {
 	constructor: d(EqSome),
-	_isMutable: d(null),
+	_isObservable: d(null),
 	_count: d(0),
 	addItem: d(function (item) {
 		var current, listener;
 		item = eq(item, this.testee);
-		if (!isMutable(item)) {
+		if (!isObservable(item)) {
 			if (item) {
-				this._isMutable = false;
+				this._isObservable = false;
 				this.value = true;
 				this.clear();
 				return true;
 			}
 			return false;
 		}
-		this._isMutable = true;
+		this._isObservable = true;
 		item.on('change', listener = function (nu) {
 			if (current === nu) return;
 			current = nu;
@@ -68,7 +68,7 @@ EqSome.prototype = Object.create(Mutable.prototype, {
 
 module.exports = function (list, value) {
 	var mutable = new EqSome(list, value);
-	if (mutable._isMutable) return mutable;
+	if (mutable._isObservable) return mutable;
 	mutable.clear();
 	return mutable.value;
 };

@@ -1,26 +1,26 @@
 'use strict';
 
-var Mutable   = require('./')
-  , isMutable = require('./is');
+var Observable   = require('./value')
+  , isObservable = require('./is');
 
 module.exports = function (compare) {
 	return function (left, right) {
-		var isLMutable, isRMutable, value;
-		isLMutable = isMutable(left);
-		isRMutable = isMutable(right);
-		if (!isLMutable && !isRMutable) return compare(left, right);
-		if (isLMutable) {
+		var isLObservable, isRObservable, value;
+		isLObservable = isObservable(left);
+		isRObservable = isObservable(right);
+		if (!isLObservable && !isRObservable) return compare(left, right);
+		if (isLObservable) {
 			left.on('change', function (l) {
-				value.value = compare(l, isRMutable ? right.value : right);
+				value.value = compare(l, isRObservable ? right.value : right);
 			});
 		}
-		if (isRMutable) {
+		if (isRObservable) {
 			right.on('change', function (r) {
-				value.value = compare(isLMutable ? left.value : left, r);
+				value.value = compare(isLObservable ? left.value : left, r);
 			});
 		}
-		value = new Mutable(compare(isLMutable ? left.value : left,
-			isRMutable ? right.value : right));
+		value = new Observable(compare(isLObservable ? left.value : left,
+			isRObservable ? right.value : right));
 		return value;
 	};
 };

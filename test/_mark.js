@@ -12,5 +12,5 @@ module.exports = function (t, a) {
 	x.value = 'raz';
 	a(is(x), false, "Not yet mutable");
 	a(t(x), x, "Returns self");
-	a(is(x), true, "Mutable");
+	a(is(x), true, "Observable");
 };

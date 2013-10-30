@@ -1,16 +1,16 @@
 'use strict';
 
-var isMutable = require('../is')
-  , Mutable   = require('../');
+var isObservable = require('../is')
+  , Observable   = require('../value');
 
 module.exports = function (t, a) {
-	var x = new Mutable(), y = new Mutable(), r, ev;
+	var x = new Observable(), y = new Observable(), r, ev;
 	t = t(function (a, b) { return a === b; });
 	a(t('raz', 'raz'), true, "Immutable");
 	a(t(), true, "Undefined");
 	a(t('raz'), false, "Immutable: not equal");
 
-	a(isMutable(r = t(x, 'raz')), true, "Left");
+	a(isObservable(r = t(x, 'raz')), true, "Left");
 	a(r.value, false, "Left: value");
 	r.on('change', function (val) { ev = val; });
 	x.value = 'raz';
@@ -21,7 +21,7 @@ module.exports = function (t, a) {
 	a(r.value, false, "Left: Disequalized: value");
 
 	ev = null;
-	a(isMutable(r = t('dwa', x)), true, "Right");
+	a(isObservable(r = t('dwa', x)), true, "Right");
 	a(r.value, true, "Right: value");
 	r.on('change', function (val) { ev = val; });
 	x.value = 'raz';
@@ -31,7 +31,7 @@ module.exports = function (t, a) {
 	a(ev, true, "Right: Equalized");
 	a(r.value, true, "Right: Equalized: value");
 
-	a(isMutable(r = t(x, y)), true, "Both");
+	a(isObservable(r = t(x, y)), true, "Both");
 	a(r.value, false, "Both: value");
 	r.on('change', function (val) { ev = val; });
 	y.value = 'dwa';

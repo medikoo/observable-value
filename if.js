@@ -1,32 +1,32 @@
 'use strict';
 
-var Mutable   = require('./')
-  , isMutable = require('./is');
+var Observable   = require('./value')
+  , isObservable = require('./is');
 
 module.exports = function (cond, onTrue, onFalse) {
-	var isTMutable, isFMutable, value;
-	if (!isMutable(cond)) return cond ? onTrue : onFalse;
+	var isTObservable, isFObservable, value;
+	if (!isObservable(cond)) return cond ? onTrue : onFalse;
 
-	isTMutable = isMutable(onTrue);
-	isFMutable = isMutable(onFalse);
-	if (isTMutable) {
+	isTObservable = isObservable(onTrue);
+	isFObservable = isObservable(onFalse);
+	if (isTObservable) {
 		onTrue.on('change', function (t) {
 			if (!cond.value) return;
 			value.value = t;
 		});
 	}
-	if (isFMutable) {
+	if (isFObservable) {
 		onFalse.on('change', function (f) {
 			if (cond.value) return;
 			value.value = f;
 		});
 	}
 	cond.on('change', function (nu) {
-		if (nu) value.value = isTMutable ? onTrue.value : onTrue;
-		else value.value = isFMutable ? onFalse.value : onFalse;
+		if (nu) value.value = isTObservable ? onTrue.value : onTrue;
+		else value.value = isFObservable ? onFalse.value : onFalse;
 	});
-	if (cond.value) value = isTMutable ? onTrue.value : onTrue;
-	else value = isFMutable ? onFalse.value : onFalse;
-	value = new Mutable(value);
+	if (cond.value) value = isTObservable ? onTrue.value : onTrue;
+	else value = isFObservable ? onFalse.value : onFalse;
+	value = new Observable(value);
 	return value;
 };

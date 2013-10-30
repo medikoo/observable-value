@@ -1,8 +1,8 @@
 'use strict';
 
-var d         = require('d/d')
-  , Mutable   = require('./')
-  , isMutable = require('./is')
+var d            = require('d/d')
+  , Observable   = require('./value')
+  , isObservable = require('./is')
 
   , slice = Array.prototype.slice
   , defineProperty = Object.defineProperty;
@@ -13,7 +13,7 @@ module.exports = function (entry/*, …names*/) {
 	names = slice.call(arguments, 1);
 	if (!names.length) return entry;
 
-	while (!isMutable(entry) && names.length) {
+	while (!isObservable(entry) && names.length) {
 		entry = entry[names.shift()];
 		if (entry == null) return entry;
 	}
@@ -26,7 +26,7 @@ module.exports = function (entry/*, …names*/) {
 			mutable.value = value;
 			return;
 		}
-		if (!isMutable(value)) {
+		if (!isObservable(value)) {
 			if (i === l) mutable.value = value;
 			else return add(value[names[i]], i + 1, mutable);
 			return;
@@ -44,6 +44,6 @@ module.exports = function (entry/*, …names*/) {
 		};
 	};
 
-	mutable = new Mutable();
+	mutable = new Observable();
 	return defineProperty(mutable, 'destroy', d(add(entry, 0, mutable)));
 };

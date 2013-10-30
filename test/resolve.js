@@ -1,10 +1,11 @@
 'use strict';
 
-var isMutable = require('../is')
-  , Mutable   = require('../');
+var isObservable = require('../is')
+  , Observable   = require('../value');
 
 module.exports = function (t, a) {
-	var c = new Mutable(), x = new Mutable(), y = new Mutable(), r, ev = null;
+	var c = new Observable(), x = new Observable(), y = new Observable(), r
+	  , ev = null;
 
 	a(t('raz', 'foo', 'bar'), undefined, "Immutable: Primitive");
 	a(t({ foo: { bar: 'raz' } }, 'foo', 'bar'), 'raz', "Immutable");
@@ -13,7 +14,7 @@ module.exports = function (t, a) {
 	a(t(undefined, null), undefined, "Undefined & Null");
 	a(t(null, undefined), null, "Null & Undefined");
 
-	a(isMutable(r = t(c, 'foo', 'bar')), true, "Mutable");
+	a(isObservable(r = t(c, 'foo', 'bar')), true, "Observable");
 	a(r.value, undefined, "False: value");
 
 	r.on('change', function (val) { ev = val; });

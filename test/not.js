@@ -1,18 +1,18 @@
 'use strict';
 
-var isMutable = require('../is')
-  , Mutable   = require('../');
+var isObservable = require('../is')
+  , Observable   = require('../value');
 
 module.exports = function (t, a) {
-	var x = new Mutable('foo'), r = t(x);
+	var x = new Observable('foo'), r = t(x);
 
 	a(t(true), false, "Immutable #1");
 	a(t(false), true, "Immutable #2");
 
-	a(isMutable(r), true, "Returns mutable");
-	a(r.value, false, "Mutable #1");
+	a(isObservable(r), true, "Returns mutable");
+	a(r.value, false, "Observable #1");
 	x.value = 0;
-	a(r.value, true, "Mutable #1");
+	a(r.value, true, "Observable #1");
 	x.value = {};
-	a(r.value, false, "Mutable #3");
+	a(r.value, false, "Observable #3");
 };
