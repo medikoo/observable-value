@@ -11,12 +11,8 @@ var assign   = require('es5-ext/object/assign')
   , Observable;
 
 module.exports = Observable = function (value) {
+	if (is(value)) return value;
 	if (!(this instanceof Observable)) return new Observable(value);
-	if (is(value)) {
-		defineProperty(this, '_value', d(value));
-		value.on('change', this._mutableListener);
-		value = value.value;
-	}
 	defineProperty(this, '__value', d('w', value));
 };
 mark(Object.defineProperties(ee(Observable.prototype), assign({
