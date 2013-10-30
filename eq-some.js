@@ -21,7 +21,7 @@ EqSome = function (list, value) {
 		list.on('change', this.updateList);
 		this._listeners.push(list.off.bind(list, 'change', this.updateList));
 	}
-	defineProperty(this, '__value', d('w', false));
+	defineProperty(this, '__value__', d('w', false));
 	this.updateList();
 };
 
