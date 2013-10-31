@@ -20,9 +20,7 @@ module.exports = Observable = function (value) {
 	defineProperty(this, '__value__', d('w', value));
 };
 mark(Object.defineProperties(ee(Observable.prototype), assign({
-	__value__: d('', undefined),
-	__link__: d('', undefined),
-	value: d.gs('ec', function () { return this.__value__; }, function (nu) {
+	value: d.gs(function () { return this.__value__; }, function (nu) {
 		var old = this.__value__, isOldObservable = this.hasOwnProperty('__link__');
 		if (isOldObservable) {
 			if (nu === this.__link__) return;
