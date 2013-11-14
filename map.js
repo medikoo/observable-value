@@ -11,6 +11,8 @@ module.exports = function (value, cb/*, thisArg */) {
 	if (!isObservable(value)) return cb.call(thisArg, value);
 	cb = memoize(cb.bind(thisArg), { length: 1 });
 	map = new Observable(cb(value.value));
-	value.on('change', function (nu) { map.value = cb(nu, value); });
+	value.on('change', function (event) {
+		map.value = cb(event.newValue, value);
+	});
 	return map;
 };

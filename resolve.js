@@ -31,7 +31,8 @@ module.exports = function (entry/*, …names*/) {
 			else return add(value[names[i]], i + 1, mutable);
 			return;
 		}
-		value.on('change', onChange = function (nu) {
+		value.on('change', onChange = function (event) {
+			var nu = event.newValue;
 			if (clear) clear();
 			if ((i === l) || (nu == null)) mutable.value = nu;
 			else clear = add(nu[names[i]], i + 1, mutable);

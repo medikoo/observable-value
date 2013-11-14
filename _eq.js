@@ -10,13 +10,15 @@ module.exports = function (compare) {
 		isRObservable = isObservable(right);
 		if (!isLObservable && !isRObservable) return compare(left, right);
 		if (isLObservable) {
-			left.on('change', function (l) {
-				value.value = compare(l, isRObservable ? right.value : right);
+			left.on('change', function (event) {
+				value.value = compare(event.newValue,
+					isRObservable ? right.value : right);
 			});
 		}
 		if (isRObservable) {
-			right.on('change', function (r) {
-				value.value = compare(isLObservable ? left.value : left, r);
+			right.on('change', function (event) {
+				value.value = compare(isLObservable ? left.value : left,
+					event.newValue);
 			});
 		}
 		value = new Observable(compare(isLObservable ? left.value : left,

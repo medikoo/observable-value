@@ -10,19 +10,19 @@ module.exports = function (cond, onTrue, onFalse) {
 	isTObservable = isObservable(onTrue);
 	isFObservable = isObservable(onFalse);
 	if (isTObservable) {
-		onTrue.on('change', function (t) {
+		onTrue.on('change', function (event) {
 			if (!cond.value) return;
-			value.value = t;
+			value.value = event.newValue;
 		});
 	}
 	if (isFObservable) {
-		onFalse.on('change', function (f) {
+		onFalse.on('change', function (event) {
 			if (cond.value) return;
-			value.value = f;
+			value.value = event.newValue;
 		});
 	}
-	cond.on('change', function (nu) {
-		if (nu) value.value = isTObservable ? onTrue.value : onTrue;
+	cond.on('change', function (event) {
+		if (event.newValue) value.value = isTObservable ? onTrue.value : onTrue;
 		else value.value = isFObservable ? onFalse.value : onFalse;
 	});
 	if (cond.value) value = isTObservable ? onTrue.value : onTrue;

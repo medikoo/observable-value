@@ -16,7 +16,7 @@ module.exports = function (t, a) {
 
 	a(isObservable(r = t(x, 'raz')), true, "Observable: A");
 	a(r.value, undefined, "A: value");
-	r.on('change', function (val) { ev = val; });
+	r.on('change', function (event) { ev = event.newValue; });
 	x.value = 15;
 	a(ev, 'raz', "A: True");
 	a(r.value, 'raz', "A: True: value");
@@ -28,7 +28,7 @@ module.exports = function (t, a) {
 	a(isObservable(r = t('dwa', x)), true, "B");
 	a(r.value, '343', "B: value");
 	ev = null;
-	r.on('change', function (val) { ev = val; });
+	r.on('change', function (event) { ev = event.newValue; });
 	x.value = 0;
 	a(ev, 0, "B: False");
 	a(r.value, 0, "B: False: value");
@@ -39,7 +39,7 @@ module.exports = function (t, a) {
 	a(isObservable(r = t(x, y)), true, "Both");
 	a(r.value, undefined, "Both: value");
 	ev = null;
-	r.on('change', function (val) { ev = val; });
+	r.on('change', function (event) { ev = event.newValue; });
 	y.value = 'dwa';
 	a(ev, 'dwa', "Both: True");
 	a(r.value, 'dwa', "Both: True: value");

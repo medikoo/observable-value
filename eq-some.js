@@ -42,7 +42,8 @@ EqSome.prototype = Object.create(Observable.prototype, {
 			return false;
 		}
 		this._isObservable = true;
-		item.on('change', listener = function (nu) {
+		item.on('change', listener = function (event) {
+			var nu = event.newValue;
 			if (current === nu) return;
 			current = nu;
 			if (nu) {

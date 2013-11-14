@@ -12,7 +12,7 @@ module.exports = function (t, a) {
 
 	a(isObservable(r = t(x, 15)), true, "Left");
 	a(r.value, false, "Left: value");
-	r.on('change', function (val) { ev = val; });
+	r.on('change', function (event) { ev = event.newValue; });
 	x.value = 15;
 	a(ev, true, "Left: Equalized");
 	a(r.value, true, "Left: Equalized: value");
@@ -23,7 +23,7 @@ module.exports = function (t, a) {
 	ev = null;
 	a(isObservable(r = t(20, x)), true, "Right");
 	a(r.value, true, "Right: value");
-	r.on('change', function (val) { ev = val; });
+	r.on('change', function (event) { ev = event.newValue; });
 	x.value = 18;
 	a(ev, false, "Right: Disqualized");
 	a(r.value, false, "Right: Disqualized: value");
@@ -33,7 +33,7 @@ module.exports = function (t, a) {
 
 	a(isObservable(r = t(x, y)), true, "Both");
 	a(r.value, false, "Both: value");
-	r.on('change', function (val) { ev = val; });
+	r.on('change', function (event) { ev = event.newValue; });
 	y.value = 22;
 	a(ev, true, "Both: Equalized");
 	a(r.value, true, "Both: Equalized: value");

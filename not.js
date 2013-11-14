@@ -8,8 +8,8 @@ module.exports = function (value) {
 	if (!isObservable(value)) return !value;
 	current = !value.value;
 	not = new Observable(current);
-	value.on('change', function (nu) {
-		nu = !nu;
+	value.on('change', function (event) {
+		var nu = !event.newValue;
 		if (nu === current) return;
 		not.value = current = nu;
 	});

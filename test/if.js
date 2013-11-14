@@ -14,7 +14,7 @@ module.exports = function (t, a) {
 
 	a(isObservable(r = t(c, 'foo', 'bar')), true, "Cond mutable");
 	a(r.value, 'bar', "False: value");
-	r.on('change', function (val) { ev = val; });
+	r.on('change', function (event) { ev = event.newValue; });
 	c.value = 'raz';
 	a(ev, 'foo', "Switch to true: event");
 	a(r.value, 'foo', "Switch to true: value");
@@ -24,7 +24,7 @@ module.exports = function (t, a) {
 
 	a(isObservable(r = t(c, x, y)), true, "Cond mutable");
 	a(r.value, undefined, "False: value");
-	r.on('change', function (val) { ev = val; });
+	r.on('change', function (event) { ev = event.newValue; });
 	y.value = 'im-y';
 
 	a(ev, 'im-y', "Change false value: event");

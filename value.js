@@ -35,13 +35,18 @@ mark(Object.defineProperties(ee(Observable.prototype), assign({
 			if (isOldObservable) delete this.__link__;
 			this.__value__ = nu;
 		}
-		if (nu !== old) this.emit('change', nu, old);
+		if (nu !== old) {
+			this.emit('change', {
+				type: 'change',
+				newValue: nu,
+				oldValue: old
+			});
+		}
 	}),
 	toString: d(function () { return String(this.__value__); })
 }, autoBind({
-	_mutableListener: d('', function (nu) {
-		if (this.__value__ === nu) return;
-		this.__value__ = nu;
-		this.emit('change', nu);
+	_mutableListener: d('', function (event) {
+		this.__value__ = event.newValue;
+		this.emit('change', event);
 	})
 }))));

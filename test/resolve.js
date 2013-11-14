@@ -17,7 +17,7 @@ module.exports = function (t, a) {
 	a(isObservable(r = t(c, 'foo', 'bar')), true, "Observable");
 	a(r.value, undefined, "False: value");
 
-	r.on('change', function (val) { ev = val; });
+	r.on('change', function (event) { ev = event.newValue; });
 	c.value = {};
 	a(ev, null, "Switch entry value: event");
 	a(r.value, undefined, "Switch entry value: value");
