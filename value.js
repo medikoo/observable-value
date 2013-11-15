@@ -4,7 +4,6 @@ var assign   = require('es5-ext/object/assign')
   , d        = require('d/d')
   , autoBind = require('d/auto-bind')
   , ee       = require('event-emitter/lib/core')
-  , mark     = require('./_mark')
   , is       = require('./is')
 
   , defineProperty = Object.defineProperty
@@ -19,7 +18,7 @@ module.exports = Observable = function (value) {
 	}
 	defineProperty(this, '__value__', d('w', value));
 };
-mark(Object.defineProperties(ee(Observable.prototype), assign({
+Object.defineProperties(ee(Observable.prototype), assign({
 	value: d.gs(function () { return this.__value__; }, function (nu) {
 		var old = this.__value__, isOldObservable = this.hasOwnProperty('__link__');
 		if (isOldObservable) {
@@ -43,10 +42,11 @@ mark(Object.defineProperties(ee(Observable.prototype), assign({
 			});
 		}
 	}),
+	'@@toStringTag': d('c', 'ObservableValue'),
 	toString: d(function () { return String(this.__value__); })
 }, autoBind({
 	_mutableListener: d('', function (event) {
 		this.__value__ = event.newValue;
 		this.emit('change', event);
 	})
-}))));
+})));
