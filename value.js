@@ -1,10 +1,12 @@
 'use strict';
 
-var assign   = require('es5-ext/object/assign')
-  , d        = require('d/d')
-  , autoBind = require('d/auto-bind')
-  , ee       = require('event-emitter/lib/core')
-  , is       = require('./is')
+var assign             = require('es5-ext/object/assign')
+  , d                  = require('d/d')
+  , autoBind           = require('d/auto-bind')
+  , toStringTagSymbol  = require('es6-symbol').toStringTag
+  , ee                 = require('event-emitter/lib/core')
+  , is                 = require('./is')
+  , isObservableSymbol = require('./symbol-is-observable')
 
   , defineProperty = Object.defineProperty
   , Observable;
@@ -42,7 +44,6 @@ Object.defineProperties(ee(Observable.prototype), assign({
 			});
 		}
 	}),
-	'@@toStringTag': d('c', 'ObservableValue'),
 	toString: d(function () { return String(this.__value__); })
 }, autoBind({
 	_mutableListener: d('', function (event) {
@@ -50,3 +51,6 @@ Object.defineProperties(ee(Observable.prototype), assign({
 		this.emit('change', event);
 	})
 })));
+defineProperty(Observable.prototype, toStringTagSymbol,
+	d('c', 'ObservableValue'));
+defineProperty(Observable.prototype, isObservableSymbol, d('', true));
