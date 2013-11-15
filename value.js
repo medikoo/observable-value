@@ -5,7 +5,7 @@ var assign             = require('es5-ext/object/assign')
   , autoBind           = require('d/auto-bind')
   , toStringTagSymbol  = require('es6-symbol').toStringTag
   , ee                 = require('event-emitter/lib/core')
-  , is                 = require('./is')
+  , is                 = require('./is-observable-value')
   , isObservableSymbol = require('./symbol-is-observable')
 
   , defineProperty = Object.defineProperty

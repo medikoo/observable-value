@@ -1,6 +1,6 @@
 'use strict';
 
-var is = require('../is');
+var is = require('../is-observable-value');
 
 module.exports = function (T, a) {
 	var value = new T(), invoked = false, x = {};

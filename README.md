@@ -28,7 +28,7 @@ console.log(emitted); // 'bar';
 Whether object is a mutable instance.
 
 ```javascript
-var isMutable = require('mutable/is');
+var isMutable = require('mutable/is-observable-value');
 
 console.log(isMutable({})); // false
 console.log(isMutable(new Mutable())); // true

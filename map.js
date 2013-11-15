@@ -3,7 +3,7 @@
 var callable     = require('es5-ext/object/valid-callable')
   , memoize      = require('memoizee/lib/regular')
   , Observable   = require('./value')
-  , isObservable = require('./is');
+  , isObservable = require('./is-observable-value');
 
 module.exports = function (value, cb/*, thisArg */) {
 	var map, thisArg = arguments[2];

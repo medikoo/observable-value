@@ -2,7 +2,7 @@
 
 var d            = require('d/d')
   , Observable   = require('./value')
-  , isObservable = require('./is')
+  , isObservable = require('./is-observable-value')
 
   , slice = Array.prototype.slice
   , defineProperty = Object.defineProperty;

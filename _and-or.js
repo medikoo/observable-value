@@ -1,7 +1,7 @@
 'use strict';
 
 var Observable   = require('./value')
-  , isObservable = require('./is')
+  , isObservable = require('./is-observable-value')
 
   , some = Array.prototype.some;
 

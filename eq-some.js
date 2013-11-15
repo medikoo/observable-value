@@ -4,7 +4,7 @@ var validValue   = require('es5-ext/object/valid-value')
   , d            = require('d/d')
   , memoize      = require('memoizee/lib/regular')
   , Observable   = require('./value')
-  , isObservable = require('./is')
+  , isObservable = require('./is-observable-value')
   , eq           = require('./eq')
 
   , some = Array.prototype.some, defineProperty = Object.defineProperty
