@@ -1,18 +1,18 @@
 {
-  "name": "mutable",
-  "version": "0.1.0",
+  "name": "observable-value",
+  "version": "0.0.0",
   "author": "Mariusz Nowak <medyk@medikoo.com> (http://www.medikoo.com/)",
-  "description": "Mutable value interface",
+  "description": "Observable value interface",
   "scripts": {
     "test": "node ./node_modules/tad/bin/tad lib"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/medikoo/mutable.git"
+    "url": "git://github.com/medikoo/observable-value.git"
   },
   "keywords": [
     "value",
-    "mutable",
+    "observable-value",
     "changeable",
     "emitter",
     "change",
