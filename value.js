@@ -1,8 +1,9 @@
 'use strict';
 
-var assign             = require('es5-ext/object/assign')
+var assign             = require('es5-ext/object/assign-multiple')
   , d                  = require('d/d')
   , autoBind           = require('d/auto-bind')
+  , lazy               = require('d/lazy')
   , toStringTagSymbol  = require('es6-symbol').toStringTag
   , ee                 = require('event-emitter/lib/core')
   , is                 = require('./is-observable-value')
@@ -37,19 +38,33 @@ Object.defineProperties(ee(Observable.prototype), assign({
 			this.__value__ = nu;
 		}
 		if (nu !== old) {
-			this.emit('change', {
-				type: 'change',
-				newValue: nu,
-				oldValue: old
-			});
+			if (this.__hold__) {
+				if (this.__event__) this.__event__.newValue = nu;
+				else this.__event__ = { newValue: nu, oldValue: old };
+				return;
+			}
+			this.emit('change', { type: 'change', newValue: nu, oldValue: old });
 		}
 	}),
-	toString: d(function () { return String(this.__value__); })
+	toString: d(function () { return String(this.__value__); }),
+	_hold_: d.gs(function () { return this.__hold__; }, function (value) {
+		var event;
+		this.__hold__ = value;
+		if (value) return;
+		event = this.__event__;
+		if (!event) return;
+		this.__event__ = null;
+		event.type = 'change';
+		this.emit('change', event);
+	})
 }, autoBind({
 	_mutableListener: d('', function (event) {
 		this.__value__ = event.newValue;
 		this.emit('change', event);
 	})
+}), lazy({
+	__hold__: d('w', 0),
+	__event__: d('w', null)
 })));
 defineProperty(Observable.prototype, toStringTagSymbol,
 	d('c', 'ObservableValue'));
