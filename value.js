@@ -37,14 +37,15 @@ Object.defineProperties(ee(Observable.prototype), assign({
 			if (isOldObservable) delete this.__link__;
 			this.__value__ = nu;
 		}
-		if (nu !== old) {
-			if (this.__hold__) {
-				if (this.__event__) this.__event__.newValue = nu;
-				else this.__event__ = { newValue: nu, oldValue: old };
-				return;
-			}
+		if (nu !== old) this._emit_(nu, old);
+	}),
+	_emit_: d(function (nu, old) {
+		if (!this.__hold__) {
 			this.emit('change', { type: 'change', newValue: nu, oldValue: old });
+			return;
 		}
+		if (this.__event__) this.__event__.newValue = nu;
+		else this.__event__ = { newValue: nu, oldValue: old };
 	}),
 	toString: d(function () { return String(this.__value__); }),
 	_hold_: d.gs(function () { return this.__hold__; }, function (value) {
