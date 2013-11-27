@@ -40,7 +40,7 @@ Object.defineProperties(ee(Observable.prototype), assign({
 		if (nu !== old) this._emit_(nu, old);
 	}),
 	_emit_: d(function (nu, old) {
-		if (!this.__hold__) {
+		if (!this.__deferred__) {
 			this.emit('change', { type: 'change', newValue: nu, oldValue: old });
 			return;
 		}
@@ -52,9 +52,9 @@ Object.defineProperties(ee(Observable.prototype), assign({
 		this.__deferredEvent__ = { newValue: nu, oldValue: old };
 	}),
 	toString: d(function () { return String(this.__value__); }),
-	_hold_: d.gs(function () { return this.__hold__; }, function (value) {
+	_deferred_: d.gs(function () { return this.__deferred__; }, function (value) {
 		var event;
-		this.__hold__ = value;
+		this.__deferred__ = value;
 		if (value) return;
 		event = this.__deferredEvent__;
 		if (!event) return;
@@ -68,7 +68,7 @@ Object.defineProperties(ee(Observable.prototype), assign({
 		this.emit('change', event);
 	})
 }), lazy({
-	__hold__: d('w', 0),
+	__deferred__: d('w', 0),
 	__deferredEvent__: d('w', null)
 })));
 defineProperty(Observable.prototype, toStringTagSymbol,
