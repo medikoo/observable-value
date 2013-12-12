@@ -40,19 +40,21 @@ Object.defineProperties(ee(Observable.prototype), assign({
 		if (nu !== old) this._emit_(nu, old);
 	}),
 	_emit_: d(function (nu, old) {
+		var event;
 		if (!this.__postponed__) {
 			this.emit('change', { type: 'change', newValue: nu, oldValue: old });
 			return;
 		}
-		if (this.__postponedEvent__) {
-			if (this.__postponedEvent__.oldValue === nu) {
-				this.__postponedEvent__ = null;
-			} else {
-				this.__postponedEvent__.newValue = nu;
-			}
+		event = this.__postponedEvent__;
+		if (!event) {
+			this.__postponedEvent__ = { newValue: nu, oldValue: old };
 			return;
 		}
-		this.__postponedEvent__ = { newValue: nu, oldValue: old };
+		if (event.oldValue === nu) {
+			this.__postponedEvent__ = null;
+			return;
+		}
+		event.newValue = nu;
 	}),
 	toString: d(function () { return String(this.__value__); }),
 	_postponed_: d.gs(function () {
