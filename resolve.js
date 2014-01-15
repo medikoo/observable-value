@@ -8,7 +8,7 @@ var d            = require('d/d')
   , defineProperty = Object.defineProperty;
 
 module.exports = function (entry/*, …names*/) {
-	var names, add, l, mutable;
+	var names, add, l, observable;
 	if (entry == null) return entry;
 	names = slice.call(arguments, 1);
 	if (!names.length) return entry;
@@ -20,31 +20,31 @@ module.exports = function (entry/*, …names*/) {
 	l = names.length;
 	if (!l) return entry;
 
-	add = function (value, i, mutable) {
+	add = function (value, i, observable) {
 		var clear, onChange;
 		if (value == null) {
-			mutable.value = value;
+			observable.value = value;
 			return;
 		}
 		if (!isObservable(value)) {
-			if (i === l) mutable.value = value;
-			else return add(value[names[i]], i + 1, mutable);
+			if (i === l) observable.value = value;
+			else return add(value[names[i]], i + 1, observable);
 			return;
 		}
 		value.on('change', onChange = function (event) {
 			var nu = event.newValue;
 			if (clear) clear();
-			if ((i === l) || (nu == null)) mutable.value = nu;
-			else clear = add(nu[names[i]], i + 1, mutable);
+			if ((i === l) || (nu == null)) observable.value = nu;
+			else clear = add(nu[names[i]], i + 1, observable);
 		});
-		if ((i === l) || (value.value == null)) mutable.value = value.value;
-		else clear = add(value.value[names[i]], i + 1, mutable);
+		if ((i === l) || (value.value == null)) observable.value = value.value;
+		else clear = add(value.value[names[i]], i + 1, observable);
 		return function () {
 			if (clear) clear();
 			value.off('change', onChange);
 		};
 	};
 
-	mutable = new Observable();
-	return defineProperty(mutable, 'destroy', d(add(entry, 0, mutable)));
+	observable = new Observable();
+	return defineProperty(observable, 'destroy', d(add(entry, 0, observable)));
 };
