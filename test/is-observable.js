@@ -1,6 +1,6 @@
 'use strict';
 
-var ee                 = require('event-emitter/lib/core')
+var ee                 = require('event-emitter')
   , isObservableSymbol = require('../symbol-is-observable')
   , Observable         = require('../value');
 

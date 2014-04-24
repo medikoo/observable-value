@@ -1,6 +1,6 @@
 'use strict';
 
-var ee         = require('event-emitter/lib/core')
+var ee         = require('event-emitter')
   , Observable = require('../value');
 
 module.exports = function (t, a) {
