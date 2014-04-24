@@ -1,6 +1,6 @@
 'use strict';
 
-var d            = require('d/d')
+var d            = require('d')
   , Observable   = require('./value')
   , isObservable = require('./is-observable-value')
 

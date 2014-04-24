@@ -1,7 +1,7 @@
 'use strict';
 
 var validValue   = require('es5-ext/object/valid-value')
-  , d            = require('d/d')
+  , d            = require('d')
   , memoize      = require('memoizee/lib/regular')
   , Observable   = require('./value')
   , isObservable = require('./is-observable-value')

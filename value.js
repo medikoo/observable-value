@@ -1,7 +1,7 @@
 'use strict';
 
 var assign             = require('es5-ext/object/assign')
-  , d                  = require('d/d')
+  , d                  = require('d')
   , autoBind           = require('d/auto-bind')
   , lazy               = require('d/lazy')
   , toStringTagSymbol  = require('es6-symbol').toStringTag
