@@ -2,7 +2,7 @@
 
 var validFunction     = require('es5-ext/function/valid-function')
   , d                 = require('d')
-  , memoize           = require('memoizee/lib/regular')
+  , memoize           = require('memoizee/plain')
   , isObservableValue = require('./is-observable-value')
 
   , create = Object.create
@@ -28,4 +28,4 @@ module.exports = memoize(function (Constructor) {
 	});
 
 	return ReadOnly;
-});
+}, { normalizer: require('memoizee/normalizers/get-1')() });

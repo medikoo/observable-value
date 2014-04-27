@@ -1,11 +1,12 @@
 'use strict';
 
-var validValue   = require('es5-ext/object/valid-value')
-  , d            = require('d')
-  , memoize      = require('memoizee/lib/regular')
-  , Observable   = require('./value')
-  , isObservable = require('./is-observable-value')
-  , eq           = require('./eq')
+var validValue    = require('es5-ext/object/valid-value')
+  , d             = require('d')
+  , memoize       = require('memoizee/plain')
+  , getNormalizer = require('memoizee/normalizers/get-1')
+  , Observable    = require('./value')
+  , isObservable  = require('./is-observable-value')
+  , eq            = require('./eq')
 
   , some = Array.prototype.some, defineProperty = Object.defineProperty
   , EqSome;
@@ -15,7 +16,7 @@ EqSome = function (list, value) {
 	this.list = validValue(list);
 	this._listeners = [];
 	if (isObservable(list)) {
-		this.addItem = memoize(this.addItem.bind(this));
+		this.addItem = memoize(this.addItem.bind(this), { normalizer: getNormalizer() });
 		this._listeners.push(this.addItem.clearAll);
 		this.updateList = this.updateList.bind(this);
 		list.on('change', this.updateList);
