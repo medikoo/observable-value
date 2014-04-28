@@ -1,7 +1,7 @@
 'use strict';
 
 var ee         = require('event-emitter')
-  , Observable = require('../value');
+  , Observable = require('../');
 
 module.exports = function (t, a) {
 	var x = {};

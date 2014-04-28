@@ -1,7 +1,7 @@
 'use strict';
 
 var isObservable = require('../is-observable-value')
-  , Observable   = require('../value');
+  , Observable   = require('../');
 
 module.exports = function (t, a) {
 	var x = new Observable(), y = new Observable(), r, ev;

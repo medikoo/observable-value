@@ -2,7 +2,7 @@
 
 var ee                 = require('event-emitter')
   , isObservableSymbol = require('../symbol-is-observable')
-  , Observable         = require('../value');
+  , Observable         = require('../');
 
 module.exports = function (t, a) {
 	var x = {};

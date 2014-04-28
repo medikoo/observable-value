@@ -1,7 +1,7 @@
 'use strict';
 
 var d            = require('d')
-  , Observable   = require('./value')
+  , Observable   = require('./')
   , isObservable = require('./is-observable-value')
 
   , slice = Array.prototype.slice

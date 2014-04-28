@@ -1,6 +1,6 @@
 'use strict';
 
-var Observable        = require('../value')
+var Observable        = require('../')
   , isObservableValue = require('../is-observable-value');
 
 module.exports = function (t, a) {
