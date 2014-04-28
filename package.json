@@ -1,15 +1,8 @@
 {
   "name": "observable-value",
   "version": "0.0.0",
-  "author": "Mariusz Nowak <medyk@medikoo.com> (http://www.medikoo.com/)",
   "description": "Observable value interface",
-  "scripts": {
-    "test": "node ./node_modules/tad/bin/tad lib"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/medikoo/observable-value.git"
-  },
+  "author": "Mariusz Nowak <medyk@medikoo.com> (http://www.medikoo.com/)",
   "keywords": [
     "value",
     "observable-value",
@@ -18,8 +11,9 @@
     "change",
     "object"
   ],
-  "scripts": {
-    "test": "node ./node_modules/tad/bin/tad"
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/medikoo/observable-value.git"
   },
   "dependencies": {
     "d": "~0.1.1",
@@ -30,6 +24,9 @@
   },
   "devDependencies": {
     "tad": "0.2.x"
+  },
+  "scripts": {
+    "test": "node ./node_modules/tad/bin/tad"
   },
   "license": "MIT"
 }
