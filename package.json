@@ -1,6 +1,6 @@
 {
   "name": "mutable",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Mariusz Nowak <medikoo+mutable@medikoo.com> (http://www.medikoo.com/)",
   "description": "Mutable value interface",
   "scripts": {
