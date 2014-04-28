@@ -1,55 +1,65 @@
-# Mutable
+# observable-value
+## Object representation of mutable value
 
-Mutable value interface
-
-Create mutable value wrapper, or extend existing object into one.
-
-To be used by mutable interfaces, so they produce objects that share same
-characteristics.
-
-Wrapper object keeps value at `value` property, and emits `change` events when
-value is changed.
+### Usage
 
 ```javascript
-var Mutable = require('mutable');
-var obj = new Mutable();
-var emitted;
+var ObservableValue = require('observable-value');
 
-obj.value = 'foo';
-obj.on('change', function (value) { emitted = value; });
-obj.value = 'bar';
-console.log(emitted); // 'bar';
+var observable = new ObservableValue('foo');
 ```
+
+Current value is accessible at `value` property:
+
+```javascript
+observable.value; // 'foo'
+```
+
+`change` events are emitted on any change
+
+```javascript
+var emitted;
+observable.on('change', function (event) { emitted = event; });
+obj.value = 'bar';
+console.log(emitted); // { newValue: 'bar', oldValue: 'foo' };
+```
+
+### Installation
+
+	$ npm install observable-value
+
+To port it to Browser or any other (non CJS) environment, use your favorite CJS bundler. No favorite yet? Try: [Browserify](http://browserify.org/), [Webmake](https://github.com/medikoo/modules-webmake) or [Webpack](http://webpack.github.io/)
+
 
 ### Additional utilities
 
-#### is
+#### isObservableValue _(observable-value/is-observable-value)_
 
-Whether object is a mutable instance.
+Whether object shares _ObservableValue_ interface
 
 ```javascript
-var isMutable = require('mutable/is-observable-value');
+var isObservableValue = require('observable-value/is-observable-value');
 
-console.log(isMutable({})); // false
-console.log(isMutable(new Mutable())); // true
+console.log(isObservableValue({})); // false
+console.log(isObservableValue(new ObservableValue())); // true
 ```
 
 #### eq
 
-Create mutable out of two different values that may be mutable.
-If values are not mutable, boolean value is returned
+Create observable value out of two different values that may share _ObservableValue_ but don't have to.
+If both values do not represent _ObservableValue_, plain boolean value is returned
 
 ```javascript
-var eq = require('mutable/eq');
+var eq = require('observable-value/eq');
 
-console.log(isMutable(eq('foo', 'bar'))); // false
+console.log(isObservableValue(eq('foo', 'bar'))); // false
 console.log(eq('foo', 'bar')); // false
 console.log(eq('foo', 'foo')); // true
 
-var m1 = new Mutable();
+var m1 = new ObservableValue();
 
 var em = eq(m1, 'foo');
-console.log(isMutable(em)); // true
+console.log(isObservableValue(em)); // true
 console.log(em.value); // false
 em.on('change', function (value) { emitted = value; });
 m1.value = 'foo';
@@ -64,7 +74,7 @@ m1.value = 'other';
 console.log(emitted); // null
 console.log(em.value); // false
 
-var m2 = new Mutable();
+var m2 = new ObservableValue();
 m2.value = 'other';
 em = eq(m1, m2);
 console.log(em.value); // true
@@ -74,17 +84,6 @@ m1.value = 'foo';
 console.log(em.value); // true
 ```
 
-## Installation
-### NPM
-
-In your project path:
-
-	$ npm install mutable
-
-### Browser
-
-You can easily bundle _Mutable_ for browser with [modules-webmake](https://github.com/medikoo/modules-webmake)
-
-## Tests [![Build Status](https://travis-ci.org/medikoo/mutable.png)](https://travis-ci.org/medikoo/mutable)
+## Tests [![Build Status](https://travis-ci.org/medikoo/observable-value.png)](https://travis-ci.org/medikoo/observable-value)
 
 	$ npm test
