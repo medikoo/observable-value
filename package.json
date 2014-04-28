@@ -1,6 +1,6 @@
 {
   "name": "observable-value",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Observable value interface",
   "author": "Mariusz Nowak <medyk@medikoo.com> (http://www.medikoo.com/)",
   "keywords": [
@@ -18,7 +18,7 @@
   "dependencies": {
     "d": "~0.1.1",
     "es5-ext": "~0.10.2",
-    "es6-symbol": "~0.1.0",
+    "es6-symbol": "0.1.x",
     "event-emitter": "~0.3.1",
     "memoizee": "~0.3.1"
   },
