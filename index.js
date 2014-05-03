@@ -9,8 +9,16 @@ var assign             = require('es5-ext/object/assign')
   , is                 = require('./is-observable-value')
   , isObservableSymbol = require('./symbol-is-observable')
 
-  , defineProperty = Object.defineProperty
-  , Observable;
+  , push = Array.prototype.push, defineProperty = Object.defineProperty
+  , toMethod, Observable;
+
+toMethod = function (fn) {
+	return function (arg) {
+		var args = [this];
+		push.apply(this, arguments);
+		return fn.apply(null, args);
+	};
+};
 
 module.exports = Observable = function (value) {
 	if (!(this instanceof Observable)) return new Observable(value);
@@ -21,6 +29,7 @@ module.exports = Observable = function (value) {
 	}
 	defineProperty(this, '__value__', d('w', value));
 };
+
 Object.defineProperties(ee(Observable.prototype), assign({
 	value: d.gs(function () { return this.__value__; }, function (nu) {
 		var old = this.__value__, isOldObservable = this.hasOwnProperty('__link__');
@@ -56,6 +65,16 @@ Object.defineProperties(ee(Observable.prototype), assign({
 		}
 		event.newValue = nu;
 	}),
+	add: d(toMethod(require('./add'))),
+	and: d(toMethod(require('./and'))),
+	eq: d(toMethod(require('./eq'))),
+	gtOrEq: d(toMethod(require('./gt-or-eq'))),
+	gt: d(toMethod(require('./gt'))),
+	ltOrEq: d(toMethod(require('./lt-or-eq'))),
+	lt: d(toMethod(require('./lt'))),
+	map: d(toMethod(require('./map'))),
+	not: d(toMethod(require('./not'))),
+	or: d(toMethod(require('./or'))),
 	toString: d(function () { return String(this.__value__); }),
 	_postponed_: d.gs(function () {
 		return this.__postponed__;
