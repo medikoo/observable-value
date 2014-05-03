@@ -16,7 +16,7 @@ module.exports = Observable = function (value) {
 	if (!(this instanceof Observable)) return new Observable(value);
 	if (is(value)) {
 		defineProperty(this, '__link__', d(value));
-		value.on('change', this._mutableListener);
+		value.on('change', this._linkedObserver);
 		value = value.value;
 	}
 	defineProperty(this, '__value__', d('w', value));
@@ -26,12 +26,12 @@ Object.defineProperties(ee(Observable.prototype), assign({
 		var old = this.__value__, isOldObservable = this.hasOwnProperty('__link__');
 		if (isOldObservable) {
 			if (nu === this.__link__) return;
-			this.__link__.off('change', this._mutableListener);
+			this.__link__.off('change', this._linkedObserver);
 		}
 		if (is(nu)) {
 			if (isOldObservable) this.__link__ = nu;
 			else defineProperty(this, '__link__', d(nu));
-			nu.on('change', this._mutableListener);
+			nu.on('change', this._linkedObserver);
 			this.__value__ = nu = nu.value;
 		} else {
 			if (isOldObservable) delete this.__link__;
@@ -70,7 +70,7 @@ Object.defineProperties(ee(Observable.prototype), assign({
 		this.emit('change', event);
 	})
 }, autoBind({
-	_mutableListener: d('', function (event) {
+	_linkedObserver: d('', function (event) {
 		this.__value__ = event.newValue;
 		this.emit('change', event);
 	})
