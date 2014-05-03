@@ -3,7 +3,8 @@
 var is = require('../is-observable-value');
 
 module.exports = function (T, a) {
-	var value = new T(), invoked = false, x = {};
+	var value = new T(), invoked = false, x = {}
+	  , o1, o2, o3;
 	a(is(value), true, "Create");
 	value.on('change', function (event) { invoked = event.newValue; });
 	a(invoked, false, "Pre emit");
@@ -16,4 +17,9 @@ module.exports = function (T, a) {
 
 	value.value = new T('raz');
 	a(value.value, 'raz', "Inner mutable");
+
+	o2 = new T(2);
+	o3 = new T(3);
+	o1 = o2.add(o3);
+	a(o1.value, 5);
 };

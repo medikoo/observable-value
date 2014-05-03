@@ -15,7 +15,7 @@ var assign             = require('es5-ext/object/assign')
 toMethod = function (fn) {
 	return function (arg) {
 		var args = [this];
-		push.apply(this, arguments);
+		push.apply(args, arguments);
 		return fn.apply(null, args);
 	};
 };
