@@ -1,2 +1,7 @@
-v0.0.1 --  2014.04.28
+v0.0.2  --  2014.05.08
+* Expose all functions as methods on ObsevableValue.prototype
+* Introduce reactive `add`
+* Rely on SameValueZero equality
+
+v0.0.1  --  2014.04.28
 Initial (improved version of previously published `mutable` package)
