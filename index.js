@@ -56,7 +56,7 @@ Object.defineProperties(ee(Observable.prototype), assign({
 		}
 		event = this.__postponedEvent__;
 		if (!event) {
-			this.__postponedEvent__ = { type: 'change', newValue: nu, oldValue: old };
+			this.__postponedEvent__ = { type: 'change', newValue: nu, oldValue: old, target: this };
 			return;
 		}
 		if (event.oldValue === nu) {
