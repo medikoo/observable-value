@@ -75,6 +75,7 @@ Object.defineProperties(ee(Observable.prototype), assign({
 	map: d(toMethod(require('./map'))),
 	not: d(toMethod(require('./not'))),
 	or: d(toMethod(require('./or'))),
+	subtract: d(toMethod(require('./subtract'))),
 	toString: d(function () { return String(this.__value__); }),
 	_postponed_: d.gs(function () {
 		return this.__postponed__;
