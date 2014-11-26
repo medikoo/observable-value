@@ -22,4 +22,8 @@ module.exports = function (T, a) {
 	o3 = new T(3);
 	o1 = o2.add(o3);
 	a(o1.value, 5);
+
+	o1 = new T(0);
+	a(o1.subtract(0).value, 0);
+	a(o1.subtract(0, 0).value, 0);
 };
