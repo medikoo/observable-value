@@ -7,7 +7,7 @@ var Observable   = require('./')
 
 module.exports = function (cond, onTrue, onFalse) {
 	var observable, isTrueResolved, isFalseResolved, update;
-	if (!isObservable(cond)) return cond ? onTrue : onFalse;
+	if (!isObservable(cond)) return cond ? resolveArgument(onTrue) : resolveArgument(onFalse);
 	observable = new Observable();
 	update = function (value) {
 		if (value) {
