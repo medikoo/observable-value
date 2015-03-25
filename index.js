@@ -68,6 +68,7 @@ Object.defineProperties(ee(Observable.prototype), assign({
 	add: d(toMethod(require('./add'))),
 	and: d(toMethod(require('./and'))),
 	eq: d(toMethod(require('./eq'))),
+	eqSloppy: d(toMethod(require('./eq-sloppy'))),
 	gtOrEq: d(toMethod(require('./gt-or-eq'))),
 	gt: d(toMethod(require('./gt'))),
 	ltOrEq: d(toMethod(require('./lt-or-eq'))),
