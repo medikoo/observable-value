@@ -8,3 +8,5 @@ node_js:
 notifications:
   email:
     - medikoo+observable-value@medikoo.com
+
+script: "npm test && npm run lint"
