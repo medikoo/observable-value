@@ -1,6 +1,6 @@
 {
   "name": "observable-value",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Observable value interface",
   "author": "Mariusz Nowak <medyk@medikoo.com> (http://www.medikoo.com/)",
   "keywords": [
