@@ -41,4 +41,7 @@ module.exports = function (t, a) {
 	y.value = 0;
 	a(ev, 0, "Both: False");
 	a(r.value, 0, "Both: False: value");
+	y.value = false;
+	a(ev, false, "Event: Changed to other value");
+	a(r.value, false, "Value: Changed to other value");
 };

@@ -12,7 +12,11 @@ module.exports = function (map) {
 
 		onChange = function (event) {
 			var i = 0, val, nu = event.newValue, old = event.oldValue;
-			if (Boolean(nu) === Boolean(old)) return;
+			if (Boolean(nu) === Boolean(old)) {
+				if (this !== current) return;
+				value.value = nu;
+				return;
+			}
 			if (this > current) return;
 			if (map(nu)) {
 				current = this;
@@ -27,7 +31,7 @@ module.exports = function (map) {
 					return;
 				}
 			}
-			current = Infinity;
+			current = l - 1;
 			value.value = isObservable(values[l - 1]) ? values[l - 1].value :
 					values[l - 1];
 		};
