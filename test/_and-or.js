@@ -32,9 +32,13 @@ module.exports = function (t, a) {
 	a(r.value, '343', "Both: value");
 	ev = null;
 	r.on('change', function (event) { ev = event.newValue; });
+	x.value = 222;
+	a(ev, 222, "Current changed: even");
+	a(r.value, 222, "Current changed: value");
+	ev = null;
 	y.value = 'dwa';
 	a(ev, null, "Both: True");
-	a(r.value, '343', "Both: True: value");
+	a(r.value, 222, "Both: True: value");
 	x.value = null;
 	a(ev, 'dwa', "First: False");
 	a(r.value, 'dwa', "First: False: value");
