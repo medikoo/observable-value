@@ -7,8 +7,8 @@ var Observable   = require('./')
 
 module.exports = function (map) {
 	return function (a, b/* …other*/) {
-		var value = map(), makeObservable, onChange, current = Infinity
-		  , values = arguments, l = values.length;
+		var value = map(), makeObservable, onChange
+		  , values = arguments, l = values.length, current = l - 1;
 
 		onChange = function (event) {
 			var i = 0, val, nu = event.newValue, old = event.oldValue;

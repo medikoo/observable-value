@@ -4,7 +4,7 @@ var isObservable = require('../is-observable-value')
   , Observable   = require('../');
 
 module.exports = function (t, a) {
-	var x = new Observable(), y = new Observable(), r, ev;
+	var x = new Observable(), y = new Observable(), r, ev, listener;
 	t = t(Boolean);
 	a(t(12, 'raz'), 12, "Immutable: A & B");
 	a(t(34, 0), 34, "Immutable: A");
@@ -17,7 +17,7 @@ module.exports = function (t, a) {
 
 	a(isObservable(r = t(x, 'raz')), true, "Observable: A");
 	a(r.value, 'raz', "A: value");
-	r.on('change', function (event) { ev = event.newValue; });
+	r.on('change', listener = function (event) { ev = event.newValue; });
 	x.value = 'foo';
 	a(ev, 'foo', "A: True");
 	a(r.value, 'foo', "A: True: value");
@@ -28,13 +28,18 @@ module.exports = function (t, a) {
 	x.value = '343';
 	a(t('dwa', x), 'dwa', "B");
 
+	r.off('change', listener);
 	a(isObservable(r = t(x, y)), true, "Both");
 	a(r.value, '343', "Both: value");
 	ev = null;
-	r.on('change', function (event) { ev = event.newValue; });
+	r.on('change', listener = function (event) { ev = event.newValue; });
+	x.value = 222;
+	a(ev, 222, "Current changed: even");
+	a(r.value, 222, "Current changed: value");
+	ev = null;
 	y.value = 'dwa';
 	a(ev, null, "Both: True");
-	a(r.value, '343', "Both: True: value");
+	a(r.value, 222, "Both: True: value");
 	x.value = null;
 	a(ev, 'dwa', "First: False");
 	a(r.value, 'dwa', "First: False: value");
@@ -44,4 +49,16 @@ module.exports = function (t, a) {
 	y.value = false;
 	a(ev, false, "Event: Changed to other value");
 	a(r.value, false, "Value: Changed to other value");
+	r.off('change', listener);
+
+	a(isObservable(r = t(x, y)), true);
+	a(r.value, false);
+	ev = null;
+	r.on('change', function (event) { ev = event.newValue; });
+	x.value = 0;
+	a(ev, null);
+	a(r.value, false);
+	y.value = '';
+	a(ev, '');
+	a(r.value, '');
 };
