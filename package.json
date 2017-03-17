@@ -1,6 +1,6 @@
 {
   "name": "observable-value",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "Observable value interface",
   "author": "Mariusz Nowak <medyk@medikoo.com> (http://www.medikoo.com/)",
   "keywords": [
@@ -16,14 +16,14 @@
     "url": "git://github.com/medikoo/observable-value.git"
   },
   "dependencies": {
-    "d": "^0.1.1",
-    "es5-ext": "^0.10.8",
-    "es6-symbol": "3",
-    "event-emitter": "^0.3.4",
-    "memoizee": "^0.3.9"
+    "d": "1",
+    "es5-ext": "^0.10.14",
+    "es6-symbol": "^3.1.1",
+    "event-emitter": "^0.3.5",
+    "memoizee": "^0.4.4"
   },
   "devDependencies": {
-    "tad": "^0.2.4",
+    "tad": "^0.2.7",
     "xlint": "^0.2.2",
     "xlint-jslint-medikoo": "^0.1.4"
   },

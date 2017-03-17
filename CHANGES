@@ -1,3 +1,6 @@
+v0.1.0  --  2017.03.17
+* Update dependencies
+
 v0.0.5  --  2015.10.15
 * Use Symbol.for to create unique observable symbol
 
